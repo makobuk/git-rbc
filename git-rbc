@@ -1,0 +1,44 @@
+#!/bin/sh
+
+branchPrefix='mb'
+RED='\033[0;31m'
+NC='\033[0m'
+YEL='\033[1;33m'
+GRN='\033[0;32m'
+projectDir=$1
+
+if [ -z "$projectDir" ]; then
+  echo "${RED}Please, define project folder!${NC}"
+  exit
+fi
+
+if [ ! -d "$projectDir" ]; then
+  echo "${RED}Project folder does not exist!${NC}"
+  exit
+fi
+
+cd $projectDir
+
+if [ ! -d .git ]; then
+  echo "${RED}Passed project folder is not GIT repository!${NC}"
+  exit
+fi
+
+branches=`git branch -a | grep remotes/origin/${branchPrefix}-*`
+
+if [ ${#branches[@]} -eq 0 ]; then
+  echo "${YEL}No remote branches found${NC}"
+  exit
+fi
+
+for branch in $branches
+do
+  branchName=$(echo $branch | sed 's/remotes\/origin\///g')
+  echo "${YEL}Delete origin/$branchName? [y/N]${NC}"
+  read confirm;  
+  if [ "$confirm" = "y" ] ; then
+    git push origin :$branchName
+    echo "${GRN}Branch: $branchName removed...${NC}"
+  fi
+done
+
