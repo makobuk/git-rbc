@@ -8,7 +8,7 @@ Getting started
 
 On Linux
 
-1. Download the script "git-branch-clener" to home folder.
+1. Download the script "git-branch-cleaner" to home folder.
 
 2. Change the default settings:
 ```python
@@ -19,7 +19,7 @@ PROJECT_FOLDER="current"
 ```
 
 3. Add following code to your ~/.bash_aliases.
-<code>alias git-clean='sh ~/git-branch-clener'</code>
+<code>alias git-clean='sh ~/git-branch-cleaner'</code>
 The name of alias is up to you.
 
 4. Reload aliases in CLI.
